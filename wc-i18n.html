@@ -180,7 +180,14 @@ Create your wc-i18n-src element here (see first example)
 
     _computeDomain: function(key) {
       if (!key) return console.warn(this.localName + ':', 'cannot compute domain, value of key is null');
-      if (!~key.indexOf('.')) return 'default';
+      if (!~key.indexOf('.')) return (function() {
+        var host = this.domHost;
+        // Set the default host name to the name of the nested component if available
+        if (host && host.nodeName) {
+          return host.nodeName.toLowerCase();
+        }
+        return 'default';
+      }.bind(this))();
       return key.split('.')[0];
     },
 

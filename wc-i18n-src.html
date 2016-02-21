@@ -94,7 +94,14 @@ See the docs for more details.
          */
         domain: {
           type: String,
-          value: 'default'
+          value: function () {
+            var host = this.domHost;
+            // Set the default host name to the name of the nested component if available
+            if (host && host.nodeName) {
+              return host.nodeName.toLowerCase();
+            }
+            return 'default';
+          }
         },
 
         /**
@@ -116,7 +123,14 @@ See the docs for more details.
          */
         localeDir: {
           type: String,
-          value: 'locales'
+          value: function() {
+            var host = this.domHost;
+            // Set the default host name to the name of the nested component if available
+            if (host && typeof host.resolveUrl === 'function') {
+              return host.resolveUrl('./locales');
+            }
+            return './locales'
+          }
         },
 
         /**

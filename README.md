@@ -12,8 +12,7 @@ This solution introduces two elements that provide sourcing and consumption of i
 
 # &lt;wc-i18n-src&gt;
 
-This element also provides language domains (Uses the `default` domain if no other was set) to allow you to have several different sets of translations
-living on the same page.
+This element also provides language domains (Unless explicitly declared these components use the name of the containing web component (if available) or `default`) to allow you to have several different sets of translations living on the same page.
 
 You need at least one `<wc-i18n-src>` in your document. It loads the locales via one of two methods: `AJAX` or manual sourcing. `AJAX` is better suited for
 development as compiling and injecting the strings into the `<wc-i18n-src>` tag on every save, though doable, can be tedious. Manual sourcing is better suited
@@ -57,8 +56,7 @@ living on the same page.
 
 In simple mode each `<wc-i18n>` component will display the output of a translated string.
 
-Simply pass a value to the `key` attribute that is formatted as follows `<domain>.<key>`. Optionally the `domain` can be omitted to use the
-default domain
+Simply pass a value to the `key` attribute. The `domain` can be omitted and you will use the default domain (the parent webcomponent name or `default`).
 
 ### Default Domain
 ```html
@@ -84,6 +82,20 @@ default domain
 <p>
   <wc-i18n key="foobar.welcome-text">This will be replaced from path/to/locales/foobar-de.json</wc-i18n>
 </p>
+```
+
+### Nested Default
+```html
+<dom-module id='my-component'>
+  <template>
+    <wc-i18n-src
+      locale="de">
+    </wc-i18n-src>
+    <p>
+      <wc-i18n key="welcome-text">This will be replaced from path/to/my-component/locales/my-component_de.json</wc-i18n>
+    </p>
+  </template>
+</dom-module>
 ```
 
 ## Example: Provider Mode
