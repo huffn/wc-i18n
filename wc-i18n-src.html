@@ -309,6 +309,8 @@ See the docs for more details.
         xhr.open('GET', url);
 
         xhr.onload = function(e) {
+          // Try en if not found
+          if (e.target.status === 404) this._fetchLocale('en');
           // Bail if status is not 200
           if (e.target.status !== 200) return;
 
