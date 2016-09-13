@@ -183,6 +183,9 @@ Create your wc-i18n-src element here (see first example)
      */
     update: function(locale) {
       var msg = this._domains[this._domain].locales[locale][this._msgid];
+      if (!msg && this._domains[this._domain].locales['en'][this._msgid]) {
+        msg = this._domains[this._domain].locales['en'][this._msgid];
+      }
       if (msg) {
         this._setValue(msg);
         if (!this.provider) {
